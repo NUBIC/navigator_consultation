@@ -1,3 +1,5 @@
+#Server will need traversal to Kayako to hit API
+
 Action:submit
 
 Post form contents to Kayako api
