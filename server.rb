@@ -23,7 +23,7 @@ post '/' do
     :status_id     => 1,
     :priority_id   => 1,
     :type_id       => 1,
-    :subject       => 'NUCATS Consultation',
+    :subject       => "Consultation request from #{full_name}",
     :contents      => contents
     )
 
