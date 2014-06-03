@@ -2,10 +2,11 @@ require 'sinatra'
 require 'kayako_client'
 
 # Configuration
+b = Bcdatabase.load
 KayakoClient::Base.configure do |config|
-  config.api_url    = '***REMOVED***'
-  config.api_key    = '***REMOVED***'
-  config.secret_key = '***REMOVED***'
+  config.api_url    = b['kayako', 'api']['url']
+  config.api_key    = b['kayako', 'api']['key']
+  config.secret_key = b['kayako', 'api']['secret']
 end
 
 #give the form to user
