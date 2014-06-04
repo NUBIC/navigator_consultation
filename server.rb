@@ -13,7 +13,7 @@ end
 post '/' do
   full_name = %w(firstname lastname).map{ |k| params[k] }.compact.join(' ')
   email = params['email']
-  contents = "Phone: #{params['phone']}\nInterests: #{params['interest'].join(';')}\nComments: #{params['comments']}"
+  contents = "Phone: #{params['phone']}\nInterests: #{params['interest'].join('; ')}\nComments: #{params['comments']}"
 
   ticket = KayakoClient::Ticket.new(
     :department_id => 14,
@@ -21,7 +21,8 @@ post '/' do
     :priority_id   => 1,
     :type_id       => 1,
     :subject       => "Consultation request from #{full_name}",
-    :contents      => contents
+    :contents      => contents,
+    :ignore_autoresponder => 1,
     )
 
   # Set user details
