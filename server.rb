@@ -1,13 +1,9 @@
 require 'sinatra'
 require 'kayako_client'
+require 'bcdatabase'
 
 # Configuration
-b = Bcdatabase.load
-KayakoClient::Base.configure do |config|
-  config.api_url    = b['kayako', 'api']['url']
-  config.api_key    = b['kayako', 'api']['key']
-  config.secret_key = b['kayako', 'api']['secret']
-end
+require_relative "config/#{settings.environment}.rb"
 
 #give the form to user
 get '/' do
