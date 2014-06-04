@@ -1,29 +1,42 @@
-<!--Prepopulation from LDAP or other auth may cause issue, user can't edit--> 
+<!--Prepopulation from LDAP or other auth may cause issue, user can"t edit--> 
 <!--Maybe add route stuff-->
-<form action="http://localhost:4567" method="post" name="request">
-<p>Please submit the following information:</p>
-<p>First Name:&#160; <input name="firstname" type="text" /></p>
-<p>Last Name:&#160; <input name="lastname" type="text" /></p>
-<p>Email:&#160; <input name="email" type="text" /></p>
-<p>Phone Number:&#160; <input name="phone" type="text" /></p>
-<p>Please contact me or send me more information about:</p>
-<p><input name="interest[]" type="checkbox" value="NUCATS Overview Consultation" /> NUCATS Overview Consultation<br />
- <input name="interest[]" type="checkbox" value="Pilot Funding" /> Pilot Funding<br />
- <input name="interest[]" type="checkbox" value="Collaboration Resources" /> Collaboration Resources<br />
- <input name="interest[]" type="checkbox" value="Education, Career Development, and Mentoring" /> Education , Career Development and Mentoring<br />
- <input name="interest[]" type="checkbox" value="Community-Engaged Research" /> Community-Engaged Research<br />
- <input name="interest[]" type="checkbox" value="Recruiting for Clinical Trials" /> Recruiting for Clinical Trials&#160;<br />
- <input name="interest[]" type="checkbox" value="Regulatory Support" /> Regulatory Support&#160;<br />
- <input name="interest[]" type="checkbox" value="Biomedical Informatics" /> Biomedical Informatics<br />
- <input name="interest[]" type="checkbox" value="Enterprise Data Warehouse" /> Enterprise Data Warehouse<br />
- <input name="interest[]" type="checkbox" value="Data Management" /> Data Management&#160;<br />
- <input name="interest[]" type="checkbox" value="Clinical Research Resources" /> Clinical Research Resources<br />
- <input name="interest[]" type="checkbox" value="Commercialization and Entrepreneurship" /> Commercialization and Entrepreneurship<br />
- <input name="interest[]" type="checkbox" value="Other" /> Other</p>
-<p>Comments:</p>
-<textarea cols="60" name="comments" rows="6" ></textarea><br />
-<br />
-<!--<div class="recaptcha"><script src="http://www.google.com/recaptcha/api/challenge?k=6LfpE90SAAAAABzMxmyP_YiT1fbNQsTZCtyoL0od" type="text/javascript">
+<form action="/" method="post">
+  <div style="padding: 10px 0">
+    <label for="firstname">First Name:</label>
+    <input type="text" name="firstname">
+  </div>
+  <div style="padding: 10px 0">
+    <label for="lastname">Last Name:</label>
+    <input type="text" name="lastname">
+  </div>
+  <div style="padding: 10px 0">
+    <label for="email">Email:</label>
+    <input type="text" name="email">
+  </div>
+  <div style="padding: 10px 0">
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone">
+  </div>
+  <div style="padding: 10px 0">
+    <input name="interest[]" id="interest_overview" value="NUCATS Overview Consultation" type="checkbox"> NUCATS Overview Consultation<br/>
+    <input name="interest[]" id="interest_funding" value="Pilot Funding" type="checkbox"> Pilot Funding<br/>
+    <input name="interest[]" id="interest_collaboration" value="Collaboration Resources" type="checkbox"> Collaboration Resources<br/>
+    <input name="interest[]" id="interest_education" value="Education , Career Development and Mentoring" type="checkbox"> Education , Career Development and Mentoring<br/>
+    <input name="interest[]" id="interest_community" value="Community-Engaged Research" type="checkbox"> Community-Engaged Research<br/>
+    <input name="interest[]" id="interest_recruiting" value="Recruiting for Clinical Trials" type="checkbox"> Recruiting for Clinical Trials&nbsp;<br/>
+    <input name="interest[]" id="interest_regulatory" value="Regulatory Support" type="checkbox"> Regulatory Support&nbsp;<br/>
+    <input name="interest[]" id="interest_informatics" value="Biomedical Informatics" type="checkbox"> Biomedical Informatics<br/>
+    <input name="interest[]" id="interest_edw" value="Enterprise Data Warehouse" type="checkbox"> Enterprise Data Warehouse<br/>
+    <input name="interest[]" id="interest_data" value="Data Management" type="checkbox"> Data Management&nbsp;<br/>
+    <input name="interest[]" id="interest_crr" value="Clinical Research Resources" type="checkbox"> Clinical Research Resources<br/>
+    <input name="interest[]" id="interest_commercialization" value="Commercialization and Entrepreneurship" type="checkbox"> Commercialization and Entrepreneurship<br/>
+    <input name="interest[]" id="interest_other" value="Other" type="checkbox"> Other
+  </div>        
+  <div style="padding: 10px 0">
+    <label for="comments">Comments:</label><br/>
+    <textarea cols="60" name="comments" rows="6"></textarea><br>
+  </div>
+  <!--<div class="recaptcha"><script src="http://www.google.com/recaptcha/api/challenge?k=6LfpE90SAAAAABzMxmyP_YiT1fbNQsTZCtyoL0od" type="text/javascript">
 // 
 
 // 
@@ -31,4 +44,6 @@
  <noscript><iframe frameborder="0" height="300" src="http://www.google.com/recaptcha/api/noscript?k=6LfpE90SAAAAABzMxmyP_YiT1fbNQsTZCtyoL0od" width="500" ></iframe> <textarea cols="40" name="recaptcha_challenge_field" rows="3" ></textarea> <input name="recaptcha_response_field" type="hidden" value="manual_challenge" /></noscript></div>
 <br />
 -->
- <input type="submit" value="Send Request" /></form>
+  <input type="submit" value="Send Request"/>
+</form>
+

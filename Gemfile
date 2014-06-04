@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'faraday'
 gem 'KayakoClient'
 gem 'bcdatabase'
 
@@ -10,4 +9,7 @@ group :development do
   gem 'capybara'
   gem 'launchy'
   gem 'awesome_print'
+  gem 'sqlite3'
+  gem 'faraday'
+  gem 'rake'
 end

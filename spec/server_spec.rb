@@ -1,55 +1,59 @@
 ENV['RACK_ENV'] = 'test'
 
-require_relative '../server' # <-- your sinatra app
+require_relative '../server'  # <-- your sinatra app
 require 'rspec'
 require 'capybara/rspec'
 require 'rack/test'
+require 'support/kayako_fake_server.rb'
 require 'faraday'
 
-class KayakoTest < Sinatra::Base
-	set :counter, 0
-#	set :db, SQLite3::Database.new(':memory:')
-	
-	get '/foo' do
-		"<html><body>Success: #{settings.counter}</body></html>"
-	end
-	
-	post '/foo' do
-		settings.counter = settings.counter + 1
-		redirect to('/foo')
-	end
-end
-
 describe 'The Navigator Submission Form', :type => :feature do
-	include Rack::Test::Methods
-	
-	before(:all) do
-		Capybara.app = app
-	end
-	
-	before(:each) do
-		t = Thread.new do
-			KayakoTest.run! :host => 'localhost', :port => 9876
-		end
-		Timeout.timeout(5) { t.join(0.1) until KayakoTest.running? }
-	end
-	
-	after(:each) do
-		KayakoTest.quit!
-	end
-	
-	def app
-		Sinatra::Application
-	end
-	
-	it "talks to Kayako" do
-		visit '/'
-# file_name = save_page
-# require "launchy"
-# Launchy.open(File.expand_path(file_name))
-fill_in 'firstname', :with => 'fred'
-click_button 'Send Request'
-kayako = Faraday.new(:url => 'http://0.0.0.0:9876').get('/foo').body
-expect(kayako).to have_content 'Success: 1'
-end
+  include Rack::Test::Methods
+
+  before(:all) do
+    Capybara.app = app
+  end
+
+  before(:each) do
+    Timeout.timeout(5) do 
+      t = Thread.new do
+        KayakoFakeServer.run! :host => kayako_uri.host, :port => kayako_uri.port
+      end
+    
+      t.join(0.1)
+    end
+  end
+
+  after(:each) do
+    KayakoFakeServer.quit!
+  end
+
+  let(:kayako_uri) { URI("http://0.0.0.0:9876") }
+  let(:kayako_client) { Faraday.new(:url => kayako_uri) }
+
+  def app 
+    Sinatra::Application
+  end
+
+  it "talks to Kayako" do
+    visit '/'
+
+    fill_in('firstname', :with => 'Fred')
+    fill_in('lastname', :with => 'Flintstone')
+    fill_in('phone', :with => '312-456-7890')
+    fill_in('email', :with => 'fred@flintstone.com')
+
+    check('interest_community')
+    check('interest_informatics')
+    check('interest_other')
+
+    click_button('Send Request')
+
+    kayako_client.get('/api/index.php?e=/Tickets/Ticket/ListAll').body.tap do |b|
+      expect(b).to have_content('Subject: Consultation request from Fred Flintstone')
+      expect(b).to have_content('Full Name: Fred Flintstone')
+      expect(b).to have_content('Email: fred@flintstone.com')
+      expect(b).to have_content('Contents: Phone: 312-456-7890 Interests: Community-Engaged Research;Biomedical Informatics;Other Comments:')
+    end
+  end
 end
