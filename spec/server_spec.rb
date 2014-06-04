@@ -53,7 +53,7 @@ describe 'The Navigator Submission Form', :type => :feature do
       expect(b).to have_content('Subject: Consultation request from Fred Flintstone')
       expect(b).to have_content('Full Name: Fred Flintstone')
       expect(b).to have_content('Email: fred@flintstone.com')
-      expect(b).to have_content('Contents: Phone: 312-456-7890 Interests: Community-Engaged Research;Biomedical Informatics;Other Comments:')
+      expect(b).to have_content('Contents: Phone: 312-456-7890 Interests: Community-Engaged Research; Biomedical Informatics; Other Comments:')
     end
   end
 end
