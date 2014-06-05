@@ -6,7 +6,9 @@ class KayakoFakeServer < Sinatra::Base
     enable :logging
   end
 
+  set :server, 'thin'
   set :db, SQLite3::Database.new(':memory:')
+  set :credentials_valid, true
 
   get '/api/index.php' do
     if params[:e] != '/Tickets/Ticket/ListAll'
@@ -54,6 +56,10 @@ class KayakoFakeServer < Sinatra::Base
     either = %w(autouserid userid staffid)
     if (params.keys & either).empty?
       error 401, "Missing either argument(s): #{either}"
+    end
+
+    if !settings.credentials_valid
+      error 401, "Credentials invalid"
     end
 
     found_either = either.detect { |k| !params[k].nil? }
