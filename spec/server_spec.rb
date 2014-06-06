@@ -15,17 +15,7 @@ describe 'The Navigator Submission Form', :type => :feature do
   end
 
   before(:each) do
-    Timeout.timeout(5) do 
-      t = Thread.new do
-        KayakoFakeServer.run! :host => kayako_uri.host, :port => kayako_uri.port
-      end
-    
-      t.join(0.1)
-    end
-  end
-
-  after(:each) do
-    KayakoFakeServer.quit!
+   Capybara::Server.new(KayakoFakeServer, kayako_uri.port).boot
   end
 
   let(:kayako_uri) { URI("http://0.0.0.0:9876") }
